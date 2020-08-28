@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Camunda Propeller Heads and Pizza</title>
+
+    <!-- <meta name="description" content="A framework for easily creating beautiful presentations using HTML"> -->
+    <meta name="author" content="Pearse Hutson">
+    <!-- 
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reset.css">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/theme/blood.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/plugin/highlight/monokai.css" id="highlight-theme">
+
+    <!-- Stylesheets for BPMN diagrams -->
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.3.0/dist/assets/diagram-js.css" />
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.3.0/dist/assets/bpmn-font/css/bpmn.css" />
+    <style>
+        .bpmn {
+            background-color: #eee;
+            border-radius: 0.25em;
+        }
+    </style>
+
+    <style>
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <!-- <h2>C# is an Object-Oriented Programming Language</h2> -->
+                <hr>
+                <p>
+                    Object-Oriented Programming is a model where programs are organized around objects and data
+                </p>
+                <div class="mermaid r-stretch">
+                    flowchart TB
+                    subgraph idg1 [object]
+                    idd1[fa:fa-database data wait what]-->idd4[data fa:fa-server]
+                    end
+                    subgraph idg2 [object]
+                    idd2[data fa:fa-digital-tachograph]-->idd3[data fa:fa-info-circle]
+                    idd2-->idd4
+                    end
+                </div>
+            </section>
+            <section>
+                <h3>Let's Look at a Full Example</h3>
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\PropellerHeadsFull.bpmn"></div>
+            </section>
+            <section>
+                <h3>It's all XML to Me</h3>
+                <pre><code class="hljs xml external" src="\CamundaPandP\bpmns\PropellerHeadsFull.bpmn"></code></pre>
+
+            </section>
+            <section>
+                <h3>BPMN Example - BPMN</h3>
+                <div class="bpmn r-stretch" src="/CamundaPandP\bpmns\AutopullCoe.bpmn"></div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Set up Mermaid Chart Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            theme: "dark",
+            startOnLoad: false,
+            securityLevel: "loose"
+        });
+
+        function renderMermaidDiagramOnSlide(revealEvent) {
+            let mermaidElements = Array.from(revealEvent.currentSlide.querySelectorAll(".mermaid:not(.rendered)"));
+
+            for (const mermaidElementIndex in mermaidElements) {
+                let mermaidElement = mermaidElements[mermaidElementIndex];
+                let mermaidId = "diagram-" + event.indexh + event.indexv + mermaidElementIndex;
+                let graphDef = mermaidElement.textContent;
+                console.log(graphDef);
+
+                try {
+                    mermaid.render(mermaidId, graphDef, svgGraph => {
+                        mermaidElement.innerHTML = svgGraph;
+                        mermaidElement.classList.add("rendered");
+                    });
+                } catch (error) {
+                    console.dir(error);
+                    mermaidElement.classList.add("rendered");
+                    mermaidElement.innerHTML = "<p style='color: red;'>Error rendering Graph <i class='fas fa-sad-tear'></i></p><br><code><pre>" + error + "</code></pre>"
+                }
+            }
+        }
+    </script>
+
+    <!-- Set up BPMN Workflow Rendering -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/bpmn-js@7.3.0/dist/bpmn-navigated-viewer.production.min.js"></script>
+    <script>
+
+        function renderBpmnWorkflowOnSlide(revealEvent) {
+            let bpmnElements = Array.from(revealEvent.currentSlide.querySelectorAll(".bpmn:not(.rendered)"));
+
+            for (const bpmnElementIndex in bpmnElements) {
+                let bpmnElement = bpmnElements[bpmnElementIndex];
+
+                bpmnElement.classList.add("rendered");
+
+                // the diagram you are going to display
+                var bpmnXML = axios({
+                    method: 'GET',
+                    url: bpmnElement.getAttribute("src")
+                })
+                    .then(function (result) {
+                        console.log(result);
+                        // BpmnJS is the BPMN viewer instance
+                        var viewer = new BpmnJS({ container: bpmnElement });
+
+                        // import a BPMN 2.0 diagram
+                        viewer.importXML(result.data).then(function (err) {
+                            var canvas = viewer.get('canvas');
+                            canvas.zoom('fit-viewport', 'auto');
+                        });
+                    });
+            }
+        }
+    </script>
+
+    <!-- Reveal Setup -->
+    <script src="https://unpkg.com/reveal.js@4.0.2/dist/reveal.js"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/zoom/zoom.js"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/notes/notes.js"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/search/search.js"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/markdown/markdown.js"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/highlight/highlight.js"></script>
+    <script>
+        function setUpReveal() {
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                transition: 'slide', // default/none/fade/slide/convex/concave/zoom
+                plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+            });
+
+            Reveal.on("slidechanged", renderMermaidDiagramOnSlide);
+            Reveal.on("ready", renderMermaidDiagramOnSlide);
+
+            Reveal.on("slidechanged", renderBpmnWorkflowOnSlide);
+            Reveal.on("ready", renderBpmnWorkflowOnSlide);
+
+            Reveal.on("slidechanged", fillWithExternalFile);
+            Reveal.on("ready", fillWithExternalFile);
+        }
+    </script>
+
+    <!-- Get All External Files (For Code Highlighting to Work) -->
+    <script>
+        let externalFileElements = Array.from(document.querySelectorAll(".external"));
+
+        for (const externalFileElementIndex in externalFileElements) {
+            let externalFileElement = externalFileElements[externalFileElementIndex];
+            externalFileElement.innerHTML = "";
+
+            axios({
+                method: 'GET',
+                url: externalFileElement.getAttribute("src")
+            }).then(function (result) {
+                console.log(result.data)
+                externalFileElement.textContent = result.data;
+            }).finally(function() {
+                setUpReveal();
+            });
+
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/f4ba660226.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
