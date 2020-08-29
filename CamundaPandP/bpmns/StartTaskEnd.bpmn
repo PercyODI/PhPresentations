@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_18gtrc4" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.1">
+  <bpmn:process id="Process_06q8v3k" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start Event">
+      <bpmn:outgoing>Flow_1mbzgzf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_1y4pz8q" name="Task">
+      <bpmn:incoming>Flow_1mbzgzf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0s89gzz</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1mbzgzf" sourceRef="StartEvent_1" targetRef="Activity_1y4pz8q" />
+    <bpmn:endEvent id="Event_06n66a8" name="End Event">
+      <bpmn:incoming>Flow_0s89gzz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0s89gzz" sourceRef="Activity_1y4pz8q" targetRef="Event_06n66a8" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_06q8v3k">
+      <bpmndi:BPMNEdge id="Flow_1mbzgzf_di" bpmnElement="Flow_1mbzgzf">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0s89gzz_di" bpmnElement="Flow_0s89gzz">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="169" y="142" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1y4pz8q_di" bpmnElement="Activity_1y4pz8q">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_06n66a8_di" bpmnElement="Event_06n66a8">
+        <dc:Bounds x="432" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="424" y="142" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

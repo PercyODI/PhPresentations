@@ -48,34 +48,100 @@
     <div class="reveal">
         <div class="slides">
             <section>
-                <!-- <h2>C# is an Object-Oriented Programming Language</h2> -->
+                <h2>Camunda And VU!</h2>
                 <hr>
-                <p>
-                    Object-Oriented Programming is a model where programs are organized around objects and data
-                </p>
-                <div class="mermaid r-stretch">
-                    flowchart TB
-                    subgraph idg1 [object]
-                    idd1[fa:fa-database data wait what]-->idd4[data fa:fa-server]
-                    end
-                    subgraph idg2 [object]
-                    idd2[data fa:fa-digital-tachograph]-->idd3[data fa:fa-info-circle]
-                    idd2-->idd4
-                    end
-                </div>
+                <div class="bpmn" src="\CamundaPandP\bpmns\IntroSlide.bpmn"></div>
             </section>
             <section>
-                <h3>Let's Look at a Full Example</h3>
-                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\PropellerHeadsFull.bpmn"></div>
+                <h3>A Presentation in 2 Parts</h3>
+                <ol>
+                    <li>BPMN and Business Process Modeling</li>
+                    <li>The Camunda Engine</li>
+                </ol>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">BPMN</h3>
+                <hr data-id="line">
+                <p>BPMN Stands for "Business Process Model and Notation"</p>
+                <div class="fragment">
+                    <span>
+                        Considered "one of the one of the most important components of successful Business-IT Alignment"
+                        <p style="float: right;">- Camunda</p>
+                    </span>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">BPMN</h3>
+                <hr data-id="line">
+                <p>Why use BPMN?</p>
+                <ul>
+                    <li>Standard</li>
+                    <li>Simplicity</li>
+                    <li>Power of Expression</li>
+                    <li>Implementation in IT</li>
+                </ul>
+
+                <aside class="notes" data-markdown>
+                    ### Standard:
+
+                    BPMN is not owned by a certain enterprise but by an institution (OMG), which is already established
+                    through other world-wide standards, e.g., UML. The standard is supported by many software products;
+                    you are less dependent on any particular vendor’s products.
+
+                    ### Simplicity
+
+                    The principle behind BPMN is rather simple which is why you can start working with this notation
+                    very quickly.
+
+                    ### Power of Expression
+
+                    If necessary, you can describe precisely how a process functions with BPMN. However, this is more
+                    difficult than only roughly describing the process. This way of precise modeling is possible, but
+                    not mandatory.
+
+                    ### Implementation in IT
+
+                    BPMN has been primarily developed to support technical implementation of processes (“Process
+                    Automation”). The more important the IT is in a company, the more helpful the use of BPMN becomes.
+
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">BPMN</h3>
+                <hr data-id="line">
+                <p>Not Owned by Camunda, but by OMG</p>
+                <iframe src="https://www.omg.org/about/index.htm" class="r-stretch"></iframe>
+                <aside class="notes" data-markdown>
+                    BPMN is owned by the Object Management Group.
+                    
+                    This group also owns standards such as Model Driven Architecture and UML
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">BPMN</h3>
+                <hr data-id="line">
+                <p>Not Owned by Camunda, but by OMG</p>
+                <p>No vendor lock-in!</p>
+                <aside class="notes" data-markdown>
+                    This means that by learning and building BPMN, we will create models that can be moved to other BPMN implementations. 
+
+                    We aren't tied to Camunda
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">What Does BPMN Look Like?</h3>
+                <hr data-id="line">
+                <p>Let's take a quick look at what BPMN diagrams look like</p>
+            </section>
+            <section>
+                <h3 data-id="title">Our First Workflow</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\StartTaskEnd.bpmn"></div>
             </section>
             <section>
                 <h3>It's all XML to Me</h3>
                 <pre><code class="hljs xml external" src="\CamundaPandP\bpmns\PropellerHeadsFull.bpmn"></code></pre>
 
-            </section>
-            <section>
-                <h3>BPMN Example - BPMN</h3>
-                <div class="bpmn r-stretch" src="/CamundaPandP\bpmns\AutopullCoe.bpmn"></div>
             </section>
         </div>
 
@@ -139,7 +205,7 @@
                         // import a BPMN 2.0 diagram
                         viewer.importXML(result.data).then(function (err) {
                             var canvas = viewer.get('canvas');
-                            canvas.zoom('fit-viewport', 'auto');
+                            canvas.zoom("fit-viewport", "auto");
                         });
                     });
             }
@@ -160,6 +226,8 @@
                 progress: true,
                 history: true,
                 center: true,
+                totalTime: 3000,
+                pdfSeparateFragments: false,
                 transition: 'slide', // default/none/fade/slide/convex/concave/zoom
                 plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
             });
@@ -169,9 +237,6 @@
 
             Reveal.on("slidechanged", renderBpmnWorkflowOnSlide);
             Reveal.on("ready", renderBpmnWorkflowOnSlide);
-
-            Reveal.on("slidechanged", fillWithExternalFile);
-            Reveal.on("ready", fillWithExternalFile);
         }
     </script>
 
@@ -187,9 +252,8 @@
                 method: 'GET',
                 url: externalFileElement.getAttribute("src")
             }).then(function (result) {
-                console.log(result.data)
                 externalFileElement.textContent = result.data;
-            }).finally(function() {
+            }).finally(function () {
                 setUpReveal();
             });
 
