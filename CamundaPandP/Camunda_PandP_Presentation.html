@@ -15,16 +15,22 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
 
-    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reset.css">
-    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css">
-    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/theme/blood.css" id="theme">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reset.css" crossorigin="anonymous"
+        SameSite="None">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css" crossorigin="anonymous"
+        SameSite="None">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/theme/blood.css" id="theme"
+        crossorigin="anonymous" SameSite="None">
 
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/plugin/highlight/monokai.css" id="highlight-theme">
+    <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/plugin/highlight/monokai.css" id="highlight-theme"
+        crossorigin="anonymous" SameSite="None">
 
     <!-- Stylesheets for BPMN diagrams -->
-    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.3.0/dist/assets/diagram-js.css" />
-    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.3.0/dist/assets/bpmn-font/css/bpmn.css" />
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.3.0/dist/assets/diagram-js.css" crossorigin="anonymous"
+        SameSite="None" />
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@7.3.0/dist/assets/bpmn-font/css/bpmn.css"
+        crossorigin="anonymous" SameSite="None" />
     <style>
         .bpmn {
             background-color: #eee;
@@ -110,10 +116,10 @@
                 <h3 data-id="title">BPMN</h3>
                 <hr data-id="line">
                 <p>Not Owned by Camunda, but by OMG</p>
-                <iframe src="https://www.omg.org/about/index.htm" class="r-stretch"></iframe>
+                <img src="\CamundaPandP\images\OmgWebsite.JPG" style="height: 450px;" />
                 <aside class="notes" data-markdown>
                     BPMN is owned by the Object Management Group.
-                    
+
                     This group also owns standards such as Model Driven Architecture and UML
                 </aside>
             </section>
@@ -123,7 +129,8 @@
                 <p>Not Owned by Camunda, but by OMG</p>
                 <p>No vendor lock-in!</p>
                 <aside class="notes" data-markdown>
-                    This means that by learning and building BPMN, we will create models that can be moved to other BPMN implementations. 
+                    This means that by learning and building BPMN, we will create models that can be moved to other BPMN
+                    implementations.
 
                     We aren't tied to Camunda
                 </aside>
@@ -134,21 +141,241 @@
                 <p>Let's take a quick look at what BPMN diagrams look like</p>
             </section>
             <section>
-                <h3 data-id="title">Our First Workflow</h3>
+                <h2 data-id="title"><i class="fas fa-exclamation-triangle" style="color: red;"></i> WARNING <i
+                        class="fas fa-exclamation-triangle" style="color: red;"></i></h2>
                 <hr data-id="line">
-                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\StartTaskEnd.bpmn"></div>
+                <p>All workflows shown in this presentation are extremely over-simplified!</p>
+                <p>If you happen to work in a system that is shown, please know that I know that the actual process is
+                    much more complicated than shown!</p>
             </section>
             <section>
-                <h3>It's all XML to Me</h3>
-                <pre><code class="hljs xml external" src="\CamundaPandP\bpmns\PropellerHeadsFull.bpmn"></code></pre>
+                <h3 data-id="title">Our First Workflow</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\StartTaskEnd.bpmn" zoom="3"></div>
+                <aside class="notes" data-markdown>
+                    Here is a very simple but valid BPMN model.
 
+                    We start with a start event. The start event is a circle with a regular line stroke. Every model
+                    must have at least one starting point.
+
+                    The rounded rectangle is a Task. This is any unit of work that needs to be done. This unit of work
+                    can be as granular as we need it to be, but should be written in the context of a single "business
+                    step".
+
+                    Finally we have an end event. While not technically required, it is good to explicity declare the
+                    end of a process. The end event uses a thick line stroke to differentiate itself from other events.
+
+                    Between each element of a workflow are sequence flows. A sequence flow is an arrow that indicates
+                    the direction of the flow.
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">Task Types</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\TaskTypes.bpmn" zoom="2.5"></div>
+                <aside class="notes" data-markdown>
+                    There are several different possible task types. Here we have just four task types. Task types have
+                    specific icons in their upper left-hand corner.
+
+                    The user task is the top left task, with the user icon. It is for any task that a human or user
+                    needs to accomplish. These might include approvals, or may be some task that has to physically
+                    completed.
+
+                    The service task is the top right task, with the two cogs icon. It is for any task that software
+                    needs to accomplish. This might be a web service like a REST or SOAP call. Or it may be pulled off a
+                    queue and worked by a worker service.
+
+                    The receive task is the bottom left task, with the white envelope icon. It is for any task that
+                    expects something to send it a message, whether it comes from internal or external sources. The
+                    reverse of the receive task is the send task. The send task is a task that sends a message out. The
+                    send task is the same envelope icon, but is black instead of white.
+
+                    The script task is the bottom right task, with the curvy paper icon. Script tasks are any task given
+                    a script that executes in the process engine. This could be a script written in JavaScript or Groovy
+                    for example.
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">String Tasks Together To Form A Workflow</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\SimpleCommuteCalcWorkflow.bpmn" zoom="1.18"></div>
+                <aside class="notes" data-markdown>
+                    Here is a simple workflow made up of four tasks. The text inside the task rectangle describes the
+                    business action being accomplished. Looks like a user, such as the Loan Officer, has to get the
+                    borrower's employer address. Then a service verifies the address. A script calculates the commute
+                    fees that apply. Then another service updates Encompass.
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">Gateways</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\SimpleCreditScoreGateway.bpmn" zoom="1.6"></div>
+                <aside class="notes" data-markdown>
+                    Gateways are used in BPMN to control the flow of the process. They allow for modelling decisions
+                    based on data, events, and allow concurrency and parallelization.
+
+                    In this workflow, we get the borrower's credit score, then we decide if the credit score is good
+                    enough. Depending on whether the credit score is good enough decides if we send an approval letter
+                    or a denial. The gateway is the diamond with the X in the middle. The X tells us it is an exclusive
+                    OR gateway, which means it can only move down one sequence flow; we can't send both an approval and
+                    a denial!
+
+                    The gateway in this case is a question, and each sequence flow is a possible answer.
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">Gateway Types</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\GatewayTypes.bpmn" zoom="3.8"></div>
+                <aside class="notes" data-markdown>
+                    Just like there are many possible task types, there are several different gateway types.
+
+                    The first and most common is the Exclusive Gateway. It is identified with an X in the middle of the
+                    diamond. An exclusive gateway can only output to one matching sequence flow (like an Exclusive OR).
+                    If more than one sequence flow match, the process is invalid.
+
+                    The second is the Parallel Gateway. It is identified with a plus in the middle of the diamond. A
+                    Parallel gateway can output to multiple sequence flows. It will always output to every sequence flow
+                    coming out from it. It is used to show concurrent flows.
+
+                    The third is the Inclusive Gateway. It is identified with a circle in the middle of the diamond. An
+                    inclusive gateway can output to one or more matching sequence flows (like an inclusive OR). If none
+                    of the sequence flows match, the process is invalid. This gateway might or might not create parallel
+                    flows, and must be used with care.
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">Parallel In Action</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\ParallelCreditScores.bpmn"></div>
+                <aside class="notes" data-markdown>
+                    Here is a more complicated version of the credit score workflow we saw before.
+
+                    A parallel gateway is used to get the credit score from all three credit reporting agencies at the
+                    same time. The parallel gateway on the other side is a merge gateway. It converts the three
+                    concurrent sequence flows back into a single sequence flow. Because it is also a parallel gateway,
+                    it knows to wait for all three tasks to complete before moving forward to the calculate step.
+                </aside>
+            </section>
+            <section>
+                <h3 data-id="title">Events</h3>
+                <hr data-id="line">
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\EventTypes.bpmn" zoom="3.8"></div>
+                <aside class="notes" data-markdown>
+                    The last element we are going to discuss is Events.
+
+                    Events are indicated by double circles, and there are several different event types. Events can
+                    exist on their own (similar to a task), or they can be attached to a task to modify or enhance it.
+
+                    The left event is a timer event. A timer event can be set to go off at a specific datetime, at a
+                    relative datetime from current, or to cycle every specified duration.
+
+                    The right event is a signal catch event. A signal is like a message, but it broadcast to everyone
+                    listening. A message is supposed to be a one-to-one communication. A signal is a one-to-many
+                    communication.
+                </aside>
+            </section>
+            <section>
+                <section>
+                    <h3 data-id="title">Events in Action</h3>
+                    <hr data-id="line">
+                    <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\EventedCreditScores.bpmn"></div>
+                    <aside class="notes" data-markdown>
+                        We've added two timer events into our credit score workflow. The top one is a stand-alone event
+                        that waits one day after the approval letter is sent. Then a user is assigned to follow up with
+                        the borrower.
+
+                        The bottom one is attached to the Send Denial task. If the task takes 3 days, the timer will
+                        interrupt the task, and alert the loan team to keep us in compliance.
+                    </aside>
+                </section>
+                <section>
+                    <h4 data-id="title">Let's look at a bigger example</h4>
+                    <hr data-id="line">
+                    <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\PropellerHeadsFull.bpmn"></div>
+                </section>
+            </section>
+            <section>
+                <h3>It's All XML To Me</h3>
+                <hr data-id="line">
+                <pre><code class="hljs xml" style="font-size: small;" data-trim>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:blende="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0k15qa7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.1"&gt;
+&lt;bpmn:process id="Process_0634gnj" isExecutable="true"&gt;
+&lt;bpmn:startEvent id="StartEvent_1"&gt;
+    &lt;bpmn:outgoing&gt;Flow_0y3szz2&lt;/bpmn:outgoing&gt;
+&lt;/bpmn:startEvent&gt;
+&lt;bpmn:sequenceFlow id="Flow_0y3szz2" sourceRef="StartEvent_1" targetRef="Gateway_0eppg4y" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_0f1801u" sourceRef="Gateway_0eppg4y" targetRef="Activity_1jr4pk0" /&gt;
+&lt;bpmn:parallelGateway id="Gateway_0eppg4y"&gt;
+    &lt;bpmn:incoming&gt;Flow_0y3szz2&lt;/bpmn:incoming&gt;
+    &lt;bpmn:outgoing&gt;Flow_0f1801u&lt;/bpmn:outgoing&gt;
+    &lt;bpmn:outgoing&gt;Flow_0g0fqyu&lt;/bpmn:outgoing&gt;
+    &lt;bpmn:outgoing&gt;Flow_0wtg7rz&lt;/bpmn:outgoing&gt;
+&lt;/bpmn:parallelGateway&gt;
+&lt;bpmn:sequenceFlow id="Flow_0g0fqyu" sourceRef="Gateway_0eppg4y" targetRef="Activity_0u3a9p8" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_0wtg7rz" sourceRef="Gateway_0eppg4y" targetRef="Activity_0im9np5" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_035b19t" sourceRef="Activity_0im9np5" targetRef="Gateway_069v88i" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_0idz2aa" sourceRef="Activity_1jr4pk0" targetRef="Gateway_069v88i" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_15tn3jg" sourceRef="Activity_0u3a9p8" targetRef="Gateway_069v88i" /&gt;
+&lt;bpmn:exclusiveGateway id="Gateway_1b7hbge" name="Is Credit Good Enough?"&gt;
+    &lt;bpmn:incoming&gt;Flow_18i1uk8&lt;/bpmn:incoming&gt;
+    &lt;bpmn:outgoing&gt;Flow_0nbdenh&lt;/bpmn:outgoing&gt;
+    &lt;bpmn:outgoing&gt;Flow_0yrefua&lt;/bpmn:outgoing&gt;
+&lt;/bpmn:exclusiveGateway&gt;
+&lt;bpmn:sequenceFlow id="Flow_1w6noiq" sourceRef="Gateway_069v88i" targetRef="Activity_0uc3fw7" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_0nbdenh" name="Yes" sourceRef="Gateway_1b7hbge" targetRef="Activity_02sdf1b" /&gt;
+&lt;bpmn:sequenceFlow id="Flow_0yrefua" name="No" sourceRef="Gateway_1b7hbge" targetRef="Activity_0e06mj3" /&gt;
+&lt;bpmn:serviceTask id="Activity_02sdf1b" name="Send Approval Letter"&gt;
+    &lt;bpmn:incoming&gt;Flow_0nbdenh&lt;/bpmn:incoming&gt;
+    &lt;bpmn:outgoing&gt;Flow_1e05z89&lt;/bpmn:outgoing&gt;
+&lt;/bpmn:serviceTask&gt;
+&lt;bpmn:serviceTask id="Activity_0e06mj3" name="Send Denial"&gt;
+    &lt;bpmn:incoming&gt;Flow_0yrefua&lt;/bpmn:incoming&gt;
+    &lt;bpmn:outgoing&gt;Flow_0zfewxx&lt;/bpmn:outgoing&gt;
+&lt;/bpmn:serviceTask&gt;
+&lt;bpmn:sequenceFlow id="Flow_18i1uk8" sourceRef="Activity_0uc3fw7" targetRef="Gateway_1b7hbge" /&gt;
+&lt;bpmn:serviceTask id="Activity_0u3a9p8" name="Get Equifax Credit Score"&gt;
+    &lt;bpmn:incoming&gt;Flow_0g0fqyu&lt;/bpmn:incoming&gt;
+    &lt;bpmn:outgoing&gt;Flow_15tn3jg&lt;/bpmn:outgoing&gt;
+&lt;/bpmn:serviceTask&gt;
+...
+                </code></pre>
+                <aside class="notes" data-markdown>
+                    Along with the standard visual notation, BPMN also has an XML standard also owned by OMG. This XML
+                    contains all the data needed to visually notate the model, including all names, types, and x y
+                    coordinates.
+
+                    This makes BPMN models easily computer readable, and is easy to manage in source control.
+                </aside>
+            </section>
+
+            <section>
+                <h1 data-id="title">Part 2 <br> Camunda</h1>
+            </section>
+            <section>
+                <h4 data-id="title">What is Camunda</h4>
+                <hr data-id="line">
+                <ul>
+                    <li>Open-Source Workflow Automation Platform</li>
+                    <li>BPMN Standard Compliant Workflow Engine</li>
+                </ul>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Workflow Automation</h3>
+                <hr data-id="line">
+                <p>Camunda allows us to execute our workflows</p>
+                <p>Let's see what this looks like in the <a
+                        href="https://bpmworkflow.d.vu.local/camunda/app/cockpit/default/#/process-definition/FakeEventedCreditScores:2:6d9aa2ba-ed62-11ea-b31f-005056bcadaf/runtime"
+                        target="_blank">Camunda Cockpit</a></p>
             </section>
         </div>
 
     </div>
 
     <!-- Set up Mermaid Chart Rendering -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" crossorigin="anonymous"
+        SameSite="None"></script>
     <script>
         mermaid.initialize({
             theme: "dark",
@@ -180,8 +407,9 @@
     </script>
 
     <!-- Set up BPMN Workflow Rendering -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/bpmn-js@7.3.0/dist/bpmn-navigated-viewer.production.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin="anonymous" SameSite="None"></script>
+    <script src="https://unpkg.com/bpmn-js@7.3.0/dist/bpmn-navigated-viewer.production.min.js" crossorigin="anonymous"
+        SameSite="None"></script>
     <script>
 
         function renderBpmnWorkflowOnSlide(revealEvent) {
@@ -193,7 +421,7 @@
                 bpmnElement.classList.add("rendered");
 
                 // the diagram you are going to display
-                var bpmnXML = axios({
+                axios({
                     method: 'GET',
                     url: bpmnElement.getAttribute("src")
                 })
@@ -206,6 +434,12 @@
                         viewer.importXML(result.data).then(function (err) {
                             var canvas = viewer.get('canvas');
                             canvas.zoom("fit-viewport", "auto");
+                            if (bpmnElement.getAttribute("zoom") != null) {
+                                let zoomLvl = parseFloat(bpmnElement.getAttribute("zoom"));
+                                if (zoomLvl != NaN) {
+                                    canvas.zoom(zoomLvl);
+                                }
+                            }
                         });
                     });
             }
@@ -213,12 +447,17 @@
     </script>
 
     <!-- Reveal Setup -->
-    <script src="https://unpkg.com/reveal.js@4.0.2/dist/reveal.js"></script>
-    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/zoom/zoom.js"></script>
-    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/notes/notes.js"></script>
-    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/search/search.js"></script>
-    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/markdown/markdown.js"></script>
-    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/highlight/highlight.js"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/dist/reveal.js" crossorigin="anonymous" SameSite="None"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/zoom/zoom.js" crossorigin="anonymous"
+        SameSite="None"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/notes/notes.js" crossorigin="anonymous"
+        SameSite="None"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/search/search.js" crossorigin="anonymous"
+        SameSite="None"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/markdown/markdown.js" crossorigin="anonymous"
+        SameSite="None"></script>
+    <script src="https://unpkg.com/reveal.js@4.0.2/plugin/highlight/highlight.js" crossorigin="anonymous"
+        SameSite="None"></script>
     <script>
         function setUpReveal() {
             Reveal.initialize({
@@ -244,22 +483,25 @@
     <script>
         let externalFileElements = Array.from(document.querySelectorAll(".external"));
 
-        for (const externalFileElementIndex in externalFileElements) {
-            let externalFileElement = externalFileElements[externalFileElementIndex];
-            externalFileElement.innerHTML = "";
+        if (externalFileElements.length > 0) {
+            for (const externalFileElementIndex in externalFileElements) {
+                let externalFileElement = externalFileElements[externalFileElementIndex];
+                externalFileElement.innerHTML = "";
 
-            axios({
-                method: 'GET',
-                url: externalFileElement.getAttribute("src")
-            }).then(function (result) {
-                externalFileElement.textContent = result.data;
-            }).finally(function () {
-                setUpReveal();
-            });
-
+                axios({
+                    method: 'GET',
+                    url: externalFileElement.getAttribute("src")
+                }).then(function (result) {
+                    externalFileElement.textContent = result.data;
+                }).finally(function () {
+                    setUpReveal();
+                });
+            }
+        } else {
+            setUpReveal();
         }
     </script>
-    <script src="https://kit.fontawesome.com/f4ba660226.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f4ba660226.js" crossorigin="anonymous" SameSite="None"></script>
 </body>
 
 </html>

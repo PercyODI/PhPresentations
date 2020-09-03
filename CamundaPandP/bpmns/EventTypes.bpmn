@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_11asex3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.1">
+  <bpmn:process id="Process_0jm99ur" isExecutable="true">
+    <bpmn:intermediateCatchEvent id="Event_1a6uqt4" name="Timer Event">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_05ix3nc" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event_1brrxhf" name="Signal Catch Event">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0jj1zl4" />
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0jm99ur">
+      <bpmndi:BPMNShape id="Event_18rmn56_di" bpmnElement="Event_1a6uqt4">
+        <dc:Bounds x="202" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="191" y="125" width="59" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0srg2bi_di" bpmnElement="Event_1brrxhf">
+        <dc:Bounds x="312" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="299" y="125" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

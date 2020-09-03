@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0t7vpdq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.1">
+  <bpmn:process id="Process_0d1062k" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0fhoxpy</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0fhoxpy" sourceRef="StartEvent_1" targetRef="Activity_1qpcqzw" />
+    <bpmn:serviceTask id="Activity_1qpcqzw" name="Get Borrower Credit Score">
+      <bpmn:incoming>Flow_0fhoxpy</bpmn:incoming>
+      <bpmn:outgoing>Flow_1klrr64</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0rufua1" name="Is Credit Good Enough?">
+      <bpmn:incoming>Flow_1klrr64</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dnyly0</bpmn:outgoing>
+      <bpmn:outgoing>Flow_18b8fyn</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1klrr64" sourceRef="Activity_1qpcqzw" targetRef="Gateway_0rufua1" />
+    <bpmn:sequenceFlow id="Flow_0dnyly0" name="Yes" sourceRef="Gateway_0rufua1" targetRef="Activity_09wr625" />
+    <bpmn:sequenceFlow id="Flow_18b8fyn" name="No" sourceRef="Gateway_0rufua1" targetRef="Activity_13az6si" />
+    <bpmn:serviceTask id="Activity_13az6si" name="Send Denial">
+      <bpmn:incoming>Flow_18b8fyn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0oaagpl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_09wr625" name="Send Approval Letter">
+      <bpmn:incoming>Flow_0dnyly0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dagxfl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0yi1krg">
+      <bpmn:incoming>Flow_0dagxfl</bpmn:incoming>
+      <bpmn:incoming>Flow_0oaagpl</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0dagxfl" sourceRef="Activity_09wr625" targetRef="Event_0yi1krg" />
+    <bpmn:sequenceFlow id="Flow_0oaagpl" sourceRef="Activity_13az6si" targetRef="Event_0yi1krg" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0d1062k">
+      <bpmndi:BPMNEdge id="Flow_0fhoxpy_di" bpmnElement="Flow_0fhoxpy">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="270" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1klrr64_di" bpmnElement="Flow_1klrr64">
+        <di:waypoint x="370" y="177" />
+        <di:waypoint x="425" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dnyly0_di" bpmnElement="Flow_0dnyly0">
+        <di:waypoint x="475" y="177" />
+        <di:waypoint x="530" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="477" y="179" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18b8fyn_di" bpmnElement="Flow_18b8fyn">
+        <di:waypoint x="450" y="202" />
+        <di:waypoint x="450" y="290" />
+        <di:waypoint x="530" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="455" y="202" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dagxfl_di" bpmnElement="Flow_0dagxfl">
+        <di:waypoint x="630" y="177" />
+        <di:waypoint x="692" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oaagpl_di" bpmnElement="Flow_0oaagpl">
+        <di:waypoint x="630" y="290" />
+        <di:waypoint x="710" y="290" />
+        <di:waypoint x="710" y="195" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a3uidg_di" bpmnElement="Activity_1qpcqzw">
+        <dc:Bounds x="270" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0rufua1_di" bpmnElement="Gateway_0rufua1" isMarkerVisible="true">
+        <dc:Bounds x="425" y="152" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="414" y="114.5" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dk8sxi_di" bpmnElement="Activity_13az6si">
+        <dc:Bounds x="530" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01p3zzz_di" bpmnElement="Activity_09wr625">
+        <dc:Bounds x="530" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0yi1krg_di" bpmnElement="Event_0yi1krg">
+        <dc:Bounds x="692" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,19 @@
+{
+  "name": "ph-presentations",
+  "version": "1.0.0",
+  "description": "TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://tfs.p.vu.local/tfs/DefaultCollection/ss/_git/ph-presentations"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
