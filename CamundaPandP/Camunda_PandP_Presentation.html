@@ -66,6 +66,10 @@
                 </ol>
             </section>
             <section data-auto-animate>
+                <h1>Part 2</h1>
+                <h3 data-id="title">BPMN</h3>
+            </section>
+            <section data-auto-animate>
                 <h3 data-id="title">BPMN</h3>
                 <hr data-id="line">
                 <p>BPMN Stands for "Business Process Model and Notation"</p>
@@ -354,7 +358,7 @@
                 <h1 data-id="title">Part 2 <br> Camunda</h1>
             </section>
             <section>
-                <h4 data-id="title">What is Camunda</h4>
+                <h3 data-id="title">What is Camunda</h3>
                 <hr data-id="line">
                 <ul>
                     <li>Open-Source Workflow Automation Platform</li>
@@ -368,6 +372,374 @@
                 <p>Let's see what this looks like in the <a
                         href="https://bpmworkflow.d.vu.local/camunda/app/cockpit/default/#/process-definition/FakeEventedCreditScores:2:6d9aa2ba-ed62-11ea-b31f-005056bcadaf/runtime"
                         target="_blank">Camunda Cockpit</a></p>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\overview.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    Here we have the credit score workflow we've been working through, but now it has been deployed to
+                    Camunda.
+
+                    This is the Cockpit. The Camunda engine has a couple web apps available for us to access through our
+                    mundane accounts (thanks Blair and Tim!). Everyone has access to these web apps, including Product
+                    Strategy. The most common web app that we use is the Cockpit view, and we will focus this
+                    presentation on this web app.
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\started_process.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, start a new process instance*
+
+                    Let's look at what a workflow looks like with a process instance running. Here we have an active
+                    process instance on this workflow.
+
+                    The bottom of the screen shows the process instances available, with links to their process instance
+                    views. This list is searchable and filterable, which comes in handy when you have several process
+                    instances running.
+
+                    Let's click into that process instance.
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\process_instance_view.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, click into process instance*
+
+                    Here we are looking at a single process instance.
+
+                    The blue circle with a one in it is called a token. A token represents a state within a process
+                    instance. This can tell us what step in the process we are currently working. For example, in this
+                    process, we are on the wait step. This is a timer that will complete after a day.
+
+                    Below the workflow, we have a list of variables for this process instance. This process has all
+                    three scores, as well as the calculated average score. Here is where we start to see the power of
+                    using Camunda. This process is still active, but I have easy access to the variables available, as
+                    well as their values.
+
+                    Not only can I see the variables and their values, I can even modify them on the active process! For
+                    example, if something goes wrong because a value is out of expected bounds, the process will throw
+                    an incident. Then someone (developer, PO, etc) can go in, verify the correct value, modify it, then
+                    restart that step. This gives us a lot of control
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\process_instance_three_tokens.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, start a process and quickly navigate to it*
+
+                    I know what you're thinking. This workflow has a parallel split, what does that look like?
+
+                    Here we see a process instance that is still in the process of getting the three credit scores. This
+                    time, we have multiple blue tokens, one on each credit score task. A process instance can have
+                    multiple tokens on it, and depending on the complexity of that workflow can be processing many
+                    parallel branches simultaneously. All of the tokens share a collection of process instance variables
+                    that can each be accessed and modified by any of the running tokens.
+
+                    Because we used a parallel gateway to merge the three tasks into one, it will wait until all three
+                    tokens reach it, and then emit a single token to the next step.
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\multiple_processes.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, start many new processes*
+
+                    So far we've only seen one process at a time. I am going to kick off many new processes so we can
+                    see what it looks like!
+
+                    Here we can see many different tokens in many different locations. This is where the process
+                    instance search and filter comes in handy. I can also keep track of how many processes we have and
+                    where, which can provide valuable insight into the workflow.
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\multiple_processes_history.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, go to history of process definition*
+
+                    In addition to currently running processes, we can also take a look at the history of processes.
+                    This lets us look at processes that have already completed, which paths they took, and can even look
+                    at the final values of their variables.
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\history_heatmap.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, enable heat map*
+
+                    In history, we can also turn on a heatmap. This view can give us an idea of how many processes go
+                    down which paths at a glance. For example, in this workflow more denials are sent than approvals.
+                    And we have never had to alert the loan team, which is nice!
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\incident_in_workflow.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, send process instance with throwIncident set to true*
+
+                    The last thing we'll look at in this presentation is incidents. When Camunda encounters an error it
+                    throws what is called an incident. An incident shows up on the workflow as a red token. Whenever an
+                    incident is thrown, Camunda will stop the process instance in that step, and waits for manual
+                    intervention. This let's us see at a glance what processes have problems, and what the problems are.
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <h3 data-id="title">Cockpit Overview</h3>
+                <hr data-id="line">
+                <img src="\CamundaPandP\images\cockpit_images\incident_view.JPG" alt="">
+
+                <aside class="notes" data-markdown>
+                    > *If live, go to process incident*
+
+                    Here we can see the technical details of the incident. In this case, we have a full stack trace and
+                    the associated activity and process instance. If we are lucky, we can use this incident to fix some
+                    variable and restart the process. More likely it will be an error in the code somewhere, and we will
+                    need to fix the code and migrate the process instance up to start using the fixed code.
+                </aside>
+            </section>
+            <section>
+                <h2 data-id="title">Part 3 </h2>
+                <h3>Why We Like Camunda</h3>
+            </section>
+            <section>
+                <h3>Developer Insight</h3>
+                <hr />
+                <ul>
+                    <li>Visual Workflow</li>
+                    <li>Amazing REST Interface</li>
+                    <li>Built-in Versioning</li>
+                </ul>
+                <aside class="notes" data-markdown>
+                    Visual Workflow: We can draw out the expected workflow. This keeps everyone on the same page about
+                    what should be happening, both devs on the team as well as POs. This helps prevent the black box of
+                    code once we start adding new paths and branches. Non technical roles can easily see what the
+                    changes will be, and can give insight into the business expectations of the workflow. This visual is
+                    not just external documentation, but is the actual workflow that will be executed, so no dead
+                    documentation or doc rot from not keeping up with changes.
+
+                    Amazing REST interface: In addition to all the visual aspects demo'd today, there is a REST
+                    interface for everything we saw today. The interface is clear, makes a lot of sense, and is well
+                    documented. On team bard, we have started to regard the Camunda REST interface as the standard we
+                    should strive towards. This interface is how we are able to integrate Camunda into our existing
+                    systems with relative ease!
+
+                    Built-in Versioning: Every time a workflow is deployed, it creates a new version in the engine.
+                    Instances can continue in old versions; they don't stop working when a new version is released. But
+                    we have the option of migrating process instances to new versions if we choose. This gives us a lot
+                    of power when making changes and deciding whether it is backwards compatible or not.
+                </aside>
+            </section>
+            <section>
+                <h3>Product Strategy Insight</h3>
+                <hr />
+                <ul>
+                    <li>Visual Workflow</li>
+                    <li>Increased Productivity</li>
+                    <li>Logging/Debugability for free</li>
+                </ul>
+                <aside class="notes" data-markdown>
+                    Visual Workflow: Design visuals are built into the product itself and don’t need to be maintained
+                    separately -> I rely on visuals like this to understand and remember how things work
+
+                    Increased Productivity: it seems like Bard has become more productive since adopting Camunda
+
+                    Logging/Debugability: You get some degree of logging and debugability basically for free
+                </aside>
+            </section>
+            <section data-auto-animate>
+                <p style="font-size: 125%;">"A fair amount of long term product vision requires workflows built
+                    on top of workflows using
+                    workflows, all drenched in business logic.</p>
+                <p style="font-size: 0%;">
+                    Unlike the past 6 years, we can’t feasibly keep big chunks of the burden off SS’s plate by
+                    having PS
+                    bury large swaths of it in Encompass.
+                </p>
+
+                <p style="font-size: 0%;">Yeah, SS <span style="font-style: italic; text-decoration: underline;">CAN</span> code it all in
+                    Javascript and/or C#, but if a tool like this makes workflows easier for
+                    developers to maintain and scale business logic heavy workflows, then we should make an effort
+                    to
+                    get familiar with it and use it."
+                </p>
+                <div class="row">
+                    <p class="flex-1" style="margin-bottom: 0;"></p>
+                    <p style="margin-bottom: 0;"><i class="far fa-comment-dots"></i></p>
+                </div>
+                <div class="row">
+                    <p class="flex-1" style="margin-top: 0;"></p>
+                    <p style="margin-top: 0;">- Matt U.</p>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <p style="font-size: 75%;">"A fair amount of long term product vision requires workflows built
+                    on top of workflows using
+                    workflows, all drenched in business logic.</p>
+                <p style="font-size: 125%;">
+                    Unlike the past 6 years, we can’t feasibly keep big chunks of the burden off SS’s plate by
+                    having PS
+                    bury large swaths of it in Encompass.
+                </p>
+
+                <p style="font-size: 0%;">Yeah, SS <span style="font-style: italic; text-decoration: underline;">CAN</span> code it all in
+                    Javascript and/or C#, but if a tool like this makes workflows easier for
+                    developers to maintain and scale business logic heavy workflows, then we should make an effort
+                    to
+                    get familiar with it and use it."
+                </p>
+                <div class="row">
+                    <p class="flex-1" style="margin-bottom: 0;"></p>
+                    <p style="margin-bottom: 0;"><i class="far fa-comment-dots"></i></p>
+                </div>
+                <div class="row">
+                    <p class="flex-1" style="margin-top: 0;"></p>
+                    <p style="margin-top: 0;">- Matt U.</p>
+                </div>
+            </section>
+            <section data-auto-animate>
+                <p style="font-size: 75%;">"A fair amount of long term product vision requires workflows built
+                    on top of workflows using
+                    workflows, all drenched in business logic.</p>
+                <p style="font-size: 75%;">
+                    Unlike the past 6 years, we can’t feasibly keep big chunks of the burden off SS’s plate by
+                    having PS
+                    bury large swaths of it in Encompass.
+                </p>
+
+                <p style="font-size: 125%;">Yeah, SS <span style="font-style: italic; text-decoration: underline;">CAN</span> code it all in
+                    Javascript and/or C#, but if a tool like this makes workflows easier for
+                    developers to maintain and scale business logic heavy workflows, then we should make an effort
+                    to
+                    get familiar with it and use it."
+                </p>
+                <div class="row">
+                    <p class="flex-1" style="margin-bottom: 0;"></p>
+                    <p style="margin-bottom: 0;"><i class="far fa-comment-dots"></i></p>
+                </div>
+                <div class="row">
+                    <p class="flex-1" style="margin-top: 0;"></p>
+                    <p style="margin-top: 0;">- Matt U.</p>
+                </div>
+            </section>
+            <section>
+                <h3>Downsides</h3>
+                <hr />
+                <ul>
+                    <li>Have to build tools around Camunda</li>
+                    <li>Yet Another Tool to Maintain (YATM)</li>
+                    <li>Unfamiliarity with BPMN/Camunda</li>
+                </ul>
+                <aside class="notes" data-markdown>
+                    Have to build tools around Camunda: Camunda isn't a one-stop shop for automation, but is one piece
+                    of the puzzle. We still have to build integrations into and out of Camunda processes. Camunda also
+                    should handle the actual logic of a business task, just orchestrate or coordinate the tasks into a
+                    cohesive flow and handle the decisions. Applications still need to be built to run business logic.
+
+                    YATM: In a ecosystem where we have a multitude of tools and systems we use everyday, Camunda is yet
+                    another tool that has to be maintained, logged into, and understood.
+
+                    Unfamiliarity: Camunda and BPMN modeling is new to many of us. This was not covered in our college
+                    classes or bootcamps. We are still learning the best way to leverage this new tool. But our
+                    experience so far has shown that this is a tool worth learning!
+                </aside>
+            </section>
+            <section>
+                <h3>Real Use Cases</h3>
+                <hr />
+                <ul>
+                    <li><a href="https://bpmworkflow.u.vu.local/camunda/app/cockpit/default/#/process-definition/AutopullCOE:12:0a6cdf69-db38-11ea-89f9-005056811dbf/history?viewbox=%7B%22Definitions_1lpvj82%22:%7B%22x%22:147.00734394124848,%22y%22:-260.4198286413709,%22width%22:1197.062423500612,%22height%22:982.8641370869034%7D%7D&searchQuery=%5B%5D"
+                            target="_blank">
+                            RPA Workflow Automation
+                        </a></li>
+                    <li>Asynchronous Processing
+                        (<a href="https://bpmworkflow.u.vu.local/camunda/app/cockpit/default/#/process-definition/TitleOrder:9:01850fbf-e6e8-11ea-85d3-005056818c29/runtime?searchQuery=%5B%5D&viewbox=%7B%22Definitions_0s306gm%22:%7B%22x%22:57,%22y%22:-176.5,%22width%22:978,%22height%22:803%7D%7D"
+                            target="_blank">
+                            Part One
+                        </a>
+                        |
+                        <a href="https://bpmworkflow.u.vu.local/camunda/app/cockpit/default/#/process-definition/df7b9d15-ed23-11ea-b93d-005056818c29/runtime?searchQuery=%5B%5D&viewbox=%7B%22Definitions_0s306gm%22:%7B%22x%22:1,%22y%22:-283.5,%22width%22:978,%22height%22:803%7D%7D"
+                            target="_blank">
+                            Part Two
+                        </a>)
+                    </li>
+                    <li>
+                        <a href="https://bpmworkflow.u.vu.local/camunda/app/cockpit/default/#/process-definition/InsuranceApplication:60:acf37189-c512-11ea-bb39-005056811dbf/runtime?searchQuery=%5B%5D&viewbox=%7B%22Definitions_10nmj8y%22:%7B%22x%22:147.9748427672956,%22y%22:-749.1666666666667,%22width%22:3075.4716981132074,%22height%22:2525.1572327044023%7D%7D"
+                            target="_blank">
+                            Long-running Synchronous Processes
+                        </a>
+                    </li>
+                </ul>
+                <aside class="notes" data-markdown>
+                    Here are some real use cases we have currently running in prod.
+
+                    We use Camunda to orchestrate all of our RPA (robotic processing automation) work, allowing RPA to
+                    focus on it's job and not on how to start or what to do after.
+
+                    We also use Camunda handle asynchronous processing. In this case we can order a title, and we will
+                    receive and process the multiple documents coming from a 3rd party over the 3 days following the
+                    order.
+
+                    Lastly we have cases of long running synchronous processes. These processes may take minutes to days
+                    to complete and run.
+                </aside>
+            </section>
+            <section>
+                <h3>Getting Started</h3>
+                <hr />
+                <ul>
+                    <li>Talk with your Friendly Neighborhood Architect</li>
+                    <li>Join the <a href="https://vuhl.slack.com/archives/C01324AJLUD">#product-camunda</a> Slack
+                        channel</li>
+                    <li>Reach out to a team that has Camunda experience
+                        <ul>
+                            <li>Team Bard - Ops</li>
+                            <li>Velociraptors - Sales</li>
+                        </ul>
+                    </li>
+                </ul>
+                <aside class="notes" data-markdown>
+                    Have to build tools around Camunda: Camunda isn't a one-stop shop for automation, but is one piece
+                    of the puzzle. We still have to build integrations into and out of Camunda processes. Camunda also
+                    should handle the actual logic of a business task, just orchestrate or coordinate the tasks into a
+                    cohesive flow and handle the decisions. Applications still need to be built to run business logic.
+
+                    YATM: In a ecosystem where we have a multitude of tools and systems we use everyday, Camunda is yet
+                    another tool that has to be maintained, logged into, and understood.
+
+                    Unfamiliarity: Camunda and BPMN modeling is new to many of us. This was not covered in our college
+                    classes or bootcamps. We are still learning the best way to leverage this new tool. But our
+                    experience so far has shown that this is a tool worth learning!
+                </aside>
+            </section>
+            <section>
+                <h3>Questions</h3>
+                <hr />
+                
+                <div class="bpmn r-stretch" src="\CamundaPandP\bpmns\QuestionsSlide.bpmn" zoom="1.25s"></div>
             </section>
         </div>
 

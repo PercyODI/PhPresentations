@@ -30,10 +30,24 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${AverageScore &lt; 640}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Activity_02sdf1b" name="Send Approval Letter" camunda:asyncBefore="true" camunda:expression="${true}">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="end">
+          <camunda:script scriptFormat="groovy">def rand = new Random()
+
+sleep(rand.nextInt(12000) + 5000)</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0nbdenh</bpmn:incoming>
       <bpmn:outgoing>Flow_1e05z89</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_0e06mj3" name="Send Denial" camunda:asyncBefore="true" camunda:expression="${true}">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="groovy">def rand = new Random()
+
+sleep(rand.nextInt(20000) + 5000)</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0yrefua</bpmn:incoming>
       <bpmn:outgoing>Flow_0zfewxx</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -44,8 +58,7 @@
           <camunda:script scriptFormat="groovy">def rand = new Random()
 
 sleep(rand.nextInt(5000) + 5000)
-execution.setVariable("EquifaxScore", rand.nextInt(500) + 350)
-</camunda:script>
+execution.setVariable("EquifaxScore", rand.nextInt(500) + 350)</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0g0fqyu</bpmn:incoming>
@@ -57,8 +70,7 @@ execution.setVariable("EquifaxScore", rand.nextInt(500) + 350)
           <camunda:script scriptFormat="groovy">def rand = new Random()
 
 sleep(rand.nextInt(5000) + 5000)
-execution.setVariable("ExperianScore", rand.nextInt(500) + 350)
-</camunda:script>
+execution.setVariable("ExperianScore", rand.nextInt(500) + 350)</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0f1801u</bpmn:incoming>
@@ -70,14 +82,23 @@ execution.setVariable("ExperianScore", rand.nextInt(500) + 350)
           <camunda:script scriptFormat="groovy">def rand = new Random()
 
 sleep(rand.nextInt(5000) + 5000)
-execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)
-</camunda:script>
+execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0wtg7rz</bpmn:incoming>
       <bpmn:outgoing>Flow_035b19t</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:scriptTask id="Activity_0uc3fw7" name="Calculate Average Credit Score" camunda:asyncBefore="true" scriptFormat="groovy" camunda:resultVariable="AverageScore">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="groovy">def throwIncident = execution.getVariable("throwIncident");
+
+if(throwIncident != null &amp;&amp; throwIncident == true)
+{
+  throw new Exception("Failed to alert loan team");
+}</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1w6noiq</bpmn:incoming>
       <bpmn:outgoing>Flow_18i1uk8</bpmn:outgoing>
       <bpmn:script>Math.round((EquifaxScore + ExperianScore + TransUnionScore) / 3.0)</bpmn:script>
@@ -91,7 +112,7 @@ execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)
     <bpmn:boundaryEvent id="Event_03n15tc" name="Wait 3 Days" attachedToRef="Activity_0e06mj3">
       <bpmn:outgoing>Flow_1h4fnu6</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_1k3q2gn">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10M</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT15S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_1h4fnu6" sourceRef="Event_03n15tc" targetRef="Activity_01dqko2" />
@@ -100,6 +121,13 @@ execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1btwj81" sourceRef="Activity_01dqko2" targetRef="Event_16niphn" />
     <bpmn:serviceTask id="Activity_01dqko2" name="Alert Loan Team" camunda:asyncBefore="true" camunda:expression="${true}">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="gorryv">def rand = new Random()
+
+sleep(rand.nextInt(12000) + 5000)</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1h4fnu6</bpmn:incoming>
       <bpmn:outgoing>Flow_1btwj81</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -231,6 +259,9 @@ execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)
       <bpmndi:BPMNShape id="Activity_077wfjn_di" bpmnElement="Activity_1jr4pk0">
         <dc:Bounds x="376" y="197" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17nd6a8_di" bpmnElement="Activity_0im9np5">
+        <dc:Bounds x="380" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1slulzn_di" bpmnElement="Activity_0uc3fw7">
         <dc:Bounds x="642" y="197" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -257,9 +288,6 @@ execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1jehsm4_di" bpmnElement="Event_1jehsm4">
         <dc:Bounds x="1066" y="332" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_17nd6a8_di" bpmnElement="Activity_0im9np5">
-        <dc:Bounds x="380" y="310" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0wo9oai_di" bpmnElement="Event_03n15tc">
         <dc:Bounds x="920" y="372" width="36" height="36" />
