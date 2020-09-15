@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0k15qa7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.1">
-  <bpmn:process id="FakeEventedCreditScores" isExecutable="true">
+  <bpmn:process id="FakeEventedCreditScores" name="FakeEventedCreditScores" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0y3szz2</bpmn:outgoing>
     </bpmn:startEvent>
@@ -55,10 +55,13 @@ sleep(rand.nextInt(20000) + 5000)</camunda:script>
     <bpmn:serviceTask id="Activity_0u3a9p8" name="Get Equifax Credit Score" camunda:asyncBefore="true" camunda:expression="#{600}" camunda:resultVariable="EquifaxScore">
       <bpmn:extensionElements>
         <camunda:executionListener event="end">
-          <camunda:script scriptFormat="groovy">def rand = new Random()
+          <camunda:script scriptFormat="groovy">if(execution.getVariable("skipRand") == null || execution.getVariable("skipRand") == false)
+{
+  def rand = new Random()
 
-sleep(rand.nextInt(5000) + 5000)
-execution.setVariable("EquifaxScore", rand.nextInt(500) + 350)</camunda:script>
+  sleep(rand.nextInt(5000) + 5000)
+  execution.setVariable("EquifaxScore", rand.nextInt(500) + 350)
+}</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0g0fqyu</bpmn:incoming>
@@ -67,10 +70,13 @@ execution.setVariable("EquifaxScore", rand.nextInt(500) + 350)</camunda:script>
     <bpmn:serviceTask id="Activity_1jr4pk0" name="Get Experian Credit Score" camunda:asyncBefore="true" camunda:expression="${670}" camunda:resultVariable="ExperianScore">
       <bpmn:extensionElements>
         <camunda:executionListener event="end">
-          <camunda:script scriptFormat="groovy">def rand = new Random()
+          <camunda:script scriptFormat="groovy">if(execution.getVariable("skipRand") == null || execution.getVariable("skipRand") == false)
+{
+  def rand = new Random()
 
-sleep(rand.nextInt(5000) + 5000)
-execution.setVariable("ExperianScore", rand.nextInt(500) + 350)</camunda:script>
+  sleep(rand.nextInt(5000) + 5000)
+  execution.setVariable("ExperianScore", rand.nextInt(500) + 350)
+}</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0f1801u</bpmn:incoming>
@@ -79,10 +85,13 @@ execution.setVariable("ExperianScore", rand.nextInt(500) + 350)</camunda:script>
     <bpmn:serviceTask id="Activity_0im9np5" name="Get TransUnion Credit Score" camunda:asyncBefore="true" camunda:expression="${677}" camunda:resultVariable="TransUnionScore">
       <bpmn:extensionElements>
         <camunda:executionListener event="end">
-          <camunda:script scriptFormat="groovy">def rand = new Random()
+          <camunda:script scriptFormat="groovy">if(execution.getVariable("skipRand") == null || execution.getVariable("skipRand") == false)
+{
+  def rand = new Random()
 
-sleep(rand.nextInt(5000) + 5000)
-execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)</camunda:script>
+  sleep(rand.nextInt(5000) + 5000)
+  execution.setVariable("TransUnionScore", rand.nextInt(500) + 350)
+}</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0wtg7rz</bpmn:incoming>

@@ -57,6 +57,22 @@
                 <h2>Camunda And VU!</h2>
                 <hr>
                 <div class="bpmn" src="\CamundaPandP\bpmns\IntroSlide.bpmn"></div>
+
+                <aside class="notes" data-markdown>
+                    Prep
+
+                    - ~~Log into https:/bpmworkflow.d.vu.local/camunda~~
+                    - Run Camunda locally
+                    - `docker run -p 8081:8080 registry.camunda.cloud/cambpm-ee/camunda-bpm-platform-ee:7.11.12`
+                    - Log in with demo:demo
+                    - Activate license for history views
+                    - Deploy EventedCreditScores.bpmn
+                    - Open Postman (Camunda Training workspace)
+                    - Set up a collection running for 10-20 iterations, not sending the incident request
+                    - Full screen presentation for first half
+                    - Open speaker notes (Hopefully you're here by now)
+                    - Restart the pacing timer once presentation starts
+                </aside>
             </section>
             <section>
                 <h3>A Presentation in 2 Parts</h3>
@@ -64,9 +80,19 @@
                     <li>BPMN and Business Process Modeling</li>
                     <li>The Camunda Engine</li>
                 </ol>
+
+                <aside class="notes" data-markdown>
+                    Thank you everyone for coming to watch today propeller heads and pizza. Today I wanted to present on
+                    a new technology that we have started to adopt in Software Services. You may have heard the buzz
+                    words Camunda floating around, and today I want to show everyone what it is and what it can do for
+                    us. I believe that Camunda and the user of a Workflow Engine is not a specialty, but is a technology
+                    that eventually every team can leverage and use for their own workflows.
+
+
+                </aside>
             </section>
             <section data-auto-animate>
-                <h1>Part 2</h1>
+                <h1>Part 1</h1>
                 <h3 data-id="title">BPMN</h3>
             </section>
             <section data-auto-animate>
@@ -271,10 +297,10 @@
                     Events are indicated by double circles, and there are several different event types. Events can
                     exist on their own (similar to a task), or they can be attached to a task to modify or enhance it.
 
-                    The left event is a timer event. A timer event can be set to go off at a specific datetime, at a
+                    The left event is a timer event. It is identified by a clock icon in the middle. A timer event can be set to go off at a specific datetime, at a
                     relative datetime from current, or to cycle every specified duration.
 
-                    The right event is a signal catch event. A signal is like a message, but it broadcast to everyone
+                    The right event is a signal catch event. It is identified by the triangle icon in the middle. A signal is like a message, but it broadcast to everyone
                     listening. A message is supposed to be a one-to-one communication. A signal is a one-to-many
                     communication.
                 </aside>
@@ -524,6 +550,8 @@
                     <li>Visual Workflow</li>
                     <li>Amazing REST Interface</li>
                     <li>Built-in Versioning</li>
+                    <li>Handles State-Machine Logic</li>
+                    <li>Application Visibility</li>
                 </ul>
                 <aside class="notes" data-markdown>
                     Visual Workflow: We can draw out the expected workflow. This keeps everyone on the same page about
@@ -543,6 +571,14 @@
                     Instances can continue in old versions; they don't stop working when a new version is released. But
                     we have the option of migrating process instances to new versions if we choose. This gives us a lot
                     of power when making changes and deciding whether it is backwards compatible or not.
+
+                    Handles State-Machine Logic: This application runs as a state-machine, and is a built-in replacement
+                    for the custom state-machine applications we were building by hand before. It is generic, and allows
+                    for a variety of different variables and types.
+
+                    Application Visibility: Because of how it automates BPMNs, as a developer I can easily see the
+                    current state of any process, both running and finished. I can see the variables and the path that
+                    it has taken, and have the power to change variables on the fly.
                 </aside>
             </section>
             <section>
@@ -552,6 +588,7 @@
                     <li>Visual Workflow</li>
                     <li>Increased Productivity</li>
                     <li>Logging/Debugability for free</li>
+                    <li>Built-in Metrics</li>
                 </ul>
                 <aside class="notes" data-markdown>
                     Visual Workflow: Design visuals are built into the product itself and don’t need to be maintained
@@ -560,6 +597,10 @@
                     Increased Productivity: it seems like Bard has become more productive since adopting Camunda
 
                     Logging/Debugability: You get some degree of logging and debugability basically for free
+
+                    Built-in Metrics: Camunda provides built in metrics with historical heat-maps. Optimize is a second
+                    application that hooks into Camunda and provides easy metrics and reporting that Product Strategy
+                    can build and use.
                 </aside>
             </section>
             <section data-auto-animate>
@@ -641,7 +682,7 @@
                 </div>
             </section>
             <section>
-                <h3>Downsides</h3>
+                <h3>Trade-offs</h3>
                 <hr />
                 <ul>
                     <li>Have to build tools around Camunda</li>
@@ -651,7 +692,7 @@
                 <aside class="notes" data-markdown>
                     Have to build tools around Camunda: Camunda isn't a one-stop shop for automation, but is one piece
                     of the puzzle. We still have to build integrations into and out of Camunda processes. Camunda also
-                    should handle the actual logic of a business task, just orchestrate or coordinate the tasks into a
+                    shouldn't handle the actual logic of a business task, just orchestrate or coordinate the tasks into a
                     cohesive flow and handle the decisions. Applications still need to be built to run business logic.
 
                     YATM: In a ecosystem where we have a multitude of tools and systems we use everyday, Camunda is yet
@@ -717,17 +758,6 @@
                     </li>
                 </ul>
                 <aside class="notes" data-markdown>
-                    Have to build tools around Camunda: Camunda isn't a one-stop shop for automation, but is one piece
-                    of the puzzle. We still have to build integrations into and out of Camunda processes. Camunda also
-                    should handle the actual logic of a business task, just orchestrate or coordinate the tasks into a
-                    cohesive flow and handle the decisions. Applications still need to be built to run business logic.
-
-                    YATM: In a ecosystem where we have a multitude of tools and systems we use everyday, Camunda is yet
-                    another tool that has to be maintained, logged into, and understood.
-
-                    Unfamiliarity: Camunda and BPMN modeling is new to many of us. This was not covered in our college
-                    classes or bootcamps. We are still learning the best way to leverage this new tool. But our
-                    experience so far has shown that this is a tool worth learning!
                 </aside>
             </section>
             <section>
@@ -779,7 +809,7 @@
         SameSite="None"></script>
     <script>
         function pdfRender(elems) {
-            for(const elem of elems){
+            for (const elem of elems) {
                 renderFromElem(elem);
             }
         }
@@ -877,7 +907,7 @@
             setUpReveal();
         }
     </script>
-    <script src="https://kit.fontawesome.com/f4ba660226.js" crossorigin="anonymous" SameSite="None"></script>
+    <script src="../node_modules/@fortawesome/fontawesome-free/js/all.js" crossorigin="anonymous" SameSite="None"></script>
 </body>
 
 </html>
