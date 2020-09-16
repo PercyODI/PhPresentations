@@ -84,7 +84,8 @@
                 <aside class="notes" data-markdown>
                     Thank you everyone for coming to watch today propeller heads and pizza. Today I wanted to present on
                     a new technology that we have started to adopt in Software Services. You may have heard the buzz
-                    words Camunda floating around, and today I want to show everyone what it is and what it can do for
+                    words Camunda or BPMN floating around, and today I want to show everyone what it is and what it can
+                    do for
                     us. I believe that Camunda and the user of a Workflow Engine is not a specialty, but is a technology
                     that eventually every team can leverage and use for their own workflows.
 
@@ -99,7 +100,7 @@
                 <h3 data-id="title">BPMN</h3>
                 <hr data-id="line">
                 <p>BPMN Stands for "Business Process Model and Notation"</p>
-                <div class="fragment">
+                <div>
                     <span>
                         Considered "one of the one of the most important components of successful Business-IT Alignment"
                         <p style="float: right;">- Camunda</p>
@@ -297,10 +298,12 @@
                     Events are indicated by double circles, and there are several different event types. Events can
                     exist on their own (similar to a task), or they can be attached to a task to modify or enhance it.
 
-                    The left event is a timer event. It is identified by a clock icon in the middle. A timer event can be set to go off at a specific datetime, at a
+                    The left event is a timer event. It is identified by a clock icon in the middle. A timer event can
+                    be set to go off at a specific datetime, at a
                     relative datetime from current, or to cycle every specified duration.
 
-                    The right event is a signal catch event. It is identified by the triangle icon in the middle. A signal is like a message, but it broadcast to everyone
+                    The right event is a signal catch event. It is identified by the triangle icon in the middle. A
+                    signal is like a message, but it broadcast to everyone
                     listening. A message is supposed to be a one-to-one communication. A signal is a one-to-many
                     communication.
                 </aside>
@@ -587,8 +590,9 @@
                 <ul>
                     <li>Visual Workflow</li>
                     <li>Increased Productivity</li>
-                    <li>Logging/Debugability for free</li>
+                    <li>Logging/Debugability for Free</li>
                     <li>Built-in Metrics</li>
+                    <li>Changes to a Workflow are Usually Faster</li>
                 </ul>
                 <aside class="notes" data-markdown>
                     Visual Workflow: Design visuals are built into the product itself and don’t need to be maintained
@@ -601,6 +605,10 @@
                     Built-in Metrics: Camunda provides built in metrics with historical heat-maps. Optimize is a second
                     application that hooks into Camunda and provides easy metrics and reporting that Product Strategy
                     can build and use.
+
+                    Changes to a Workflow are Usually Faster: Product Strategy and Devs can collaborate on the visual
+                    workflow. In addition, devs don't have to dig around in a codebase and guess at what the expected
+                    paths are; they are layed out clearly and visually.
                 </aside>
             </section>
             <section data-auto-animate>
@@ -692,7 +700,8 @@
                 <aside class="notes" data-markdown>
                     Have to build tools around Camunda: Camunda isn't a one-stop shop for automation, but is one piece
                     of the puzzle. We still have to build integrations into and out of Camunda processes. Camunda also
-                    shouldn't handle the actual logic of a business task, just orchestrate or coordinate the tasks into a
+                    shouldn't handle the actual logic of a business task, just orchestrate or coordinate the tasks into
+                    a
                     cohesive flow and handle the decisions. Applications still need to be built to run business logic.
 
                     YATM: In a ecosystem where we have a multitude of tools and systems we use everyday, Camunda is yet
@@ -753,7 +762,7 @@
                     <li>Reach out to a team that has Camunda experience
                         <ul>
                             <li>Team Bard - Ops</li>
-                            <li>Velociraptors - Sales</li>
+                            <li>Velocity Raptors - Sales</li>
                         </ul>
                     </li>
                 </ul>
@@ -907,7 +916,8 @@
             setUpReveal();
         }
     </script>
-    <script src="../node_modules/@fortawesome/fontawesome-free/js/all.js" crossorigin="anonymous" SameSite="None"></script>
+    <script src="../node_modules/@fortawesome/fontawesome-free/js/all.js" crossorigin="anonymous"
+        SameSite="None"></script>
 </body>
 
 </html>
