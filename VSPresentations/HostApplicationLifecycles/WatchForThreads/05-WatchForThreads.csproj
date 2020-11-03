@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>dotnet-WatchForThreads-D81B2519-58F5-4386-9680-BD82EF845B08</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileLoggerLibrary\FileLoggerLibrary.csproj" />
+  </ItemGroup>
+</Project>
