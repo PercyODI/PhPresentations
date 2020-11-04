@@ -7,6 +7,7 @@ namespace FileLoggerLibrary
 {
     public class PhLogger : ILogger
     {
+        public static object lockObj = new object();
         public PhLogger()
         {
             Directory.CreateDirectory(@"C:\HostApplicationLogs\");
@@ -14,10 +15,15 @@ namespace FileLoggerLibrary
                 Environment.NewLine + Environment.NewLine + "--- --- ---" + Environment.NewLine + Environment.NewLine);
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
+            Func<TState, Exception, string> formatter)
         {
-            File.AppendAllText($@"C:\HostApplicationLogs\{Assembly.GetEntryAssembly().GetName().Name}.log",
-                DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss.fff | ") + formatter(state, exception) + Environment.NewLine);
+            lock (lockObj)
+            {
+                File.AppendAllText($@"C:\HostApplicationLogs\{Assembly.GetEntryAssembly().GetName().Name}.log",
+                    DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss.fff | ") + formatter(state, exception) +
+                    Environment.NewLine);
+            }
         }
 
         public bool IsEnabled(LogLevel logLevel)

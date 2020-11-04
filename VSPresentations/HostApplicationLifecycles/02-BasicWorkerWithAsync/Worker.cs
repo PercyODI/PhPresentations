@@ -26,9 +26,8 @@ namespace _02_BasicWorkerWithAsync
             var workId = 0;
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 _logger.LogInformation($"Starting work on {workId}");
-                await Task.Delay(rand.Next(500, 2_500));
+                await Task.Delay(rand.Next(5_000, 6_500));
                 _logger.LogInformation($"Finished work on {workId++}");
             }
         }

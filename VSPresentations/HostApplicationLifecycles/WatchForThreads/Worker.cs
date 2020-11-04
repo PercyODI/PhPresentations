@@ -43,6 +43,7 @@ namespace _05_WatchForThreads
             }
             catch (Exception e)
             {
+                _logger.LogError($"An error happened! {e}");
                 HostApplicationLifetime.StopApplication();
             }
         }
@@ -65,7 +66,7 @@ namespace _05_WatchForThreads
             while (true)
             {
                 _logger.LogInformation($"Consumer {consumerId} Starting work on {workId}");
-                await Task.Delay(rand.Next(3_000, 5_500));
+                await Task.Delay(rand.Next(1_000, 5_500));
                 if (workId == consumerId * 1000 + 5)
                 {
                     _logger.LogError($"Consumer {consumerId} Throwing an exception...");

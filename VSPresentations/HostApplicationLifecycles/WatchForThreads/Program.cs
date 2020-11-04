@@ -26,6 +26,10 @@ namespace _05_WatchForThreads
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.Configure<HostOptions>(o =>
+                    {
+                        o.ShutdownTimeout = TimeSpan.FromMinutes(5);
+                    });
                     services.AddTransient<Consumer>();
                     services.AddHostedService<Worker>();
                 });

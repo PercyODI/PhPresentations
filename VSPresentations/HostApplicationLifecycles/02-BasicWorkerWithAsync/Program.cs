@@ -26,6 +26,10 @@ namespace _02_BasicWorkerWithAsync
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.Configure<HostOptions>(o =>
+                    {
+                        o.ShutdownTimeout = TimeSpan.FromMinutes(5);
+                    });
                     services.AddHostedService<Worker>();
                 });
     }
