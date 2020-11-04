@@ -16,7 +16,8 @@ namespace _05_WatchForThreads
         private readonly ILogger<Worker> _logger;
         private readonly Random rand;
 
-        public Worker(ILogger<Worker> logger, IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
+        public Worker(ILogger<Worker> logger, IHostApplicationLifetime hostApplicationLifetime,
+            IServiceProvider serviceProvider)
         {
             HostApplicationLifetime = hostApplicationLifetime;
             ServiceProvider = serviceProvider;
@@ -33,13 +34,14 @@ namespace _05_WatchForThreads
                 var consumerIds = new[] {1, 2, 3, 4};
                 foreach (var consumerId in consumerIds)
                 {
-                    tasks.Add(ServiceProvider.GetRequiredService<Consumer>().DoTheWork(consumerId));
+                    tasks.Add(ServiceProvider.GetRequiredService<Consumer>().DoTheWork(consumerId, stoppingToken));
                 }
 
-                while (!stoppingToken.IsCancellationRequested)
-                {
-                    await Task.Delay(1000);
-                }
+                await Task.WhenAll(tasks.ToArray());
+                //while (!stoppingToken.IsCancellationRequested)
+                //{
+                //    await Task.Delay(1000);
+                //}
             }
             catch (Exception e)
             {
@@ -60,10 +62,10 @@ namespace _05_WatchForThreads
             rand = new Random();
         }
 
-        public async Task DoTheWork(int consumerId)
+        public async Task DoTheWork(int consumerId, CancellationToken cancellationToken)
         {
             var workId = consumerId * 1000;
-            while (true)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 _logger.LogInformation($"Consumer {consumerId} Starting work on {workId}");
                 await Task.Delay(rand.Next(1_000, 5_500));

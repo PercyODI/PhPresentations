@@ -1,5 +1,11 @@
 # Host Application Script
 
+Just so everyone is aware, I am going to be posting polls in #ops-knowledge-drops
+
+I would highly recommend participating in the polls! Even if you don't know, make an educated guess!
+
+Brennan will be monitoring for correct answers, and whoever gets the most correct answers will be able to redeem at least 5 bonus stars from Brennan.
+
 ## Prelims
 
 Ok, quick poll; how many of you work with dotnet core worker services
