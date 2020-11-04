@@ -10,6 +10,8 @@ namespace FileLoggerLibrary
         public PhLogger()
         {
             Directory.CreateDirectory(@"C:\HostApplicationLogs\");
+            File.AppendAllText($@"C:\HostApplicationLogs\{Assembly.GetEntryAssembly().GetName().Name}.log",
+                Environment.NewLine + Environment.NewLine + "--- --- ---" + Environment.NewLine + Environment.NewLine);
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
